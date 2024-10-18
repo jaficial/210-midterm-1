@@ -78,34 +78,36 @@ public:
         // newNode's pointer to the previous node is assigned the node pointer to temp 
         newNode->next = temp->next;
         newNode->prev = temp;
-        if (temp->next) // if the 
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
+        if (temp->next) // if the pointer to the next node of temp is a node
+            temp->next->prev = newNode; // the pointer to the previous node of temp->next is assigned the pointer to newNode
+        else // if there isn't a node after the position, then it is a tail
+            tail = newNode; // the new node becomes the tail node
+        temp->next = newNode; // the pointer to the next node of the tail's previous node now points to tail which holds the new node
     }
 
+    // delete_val takes in a int type parameter which represents the data within a node 
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return; // if there is no head node, the doubly linked list is empty and the method returns back to main
 
-        Node* temp = head;
+        Node* temp = head; // node pointer temp that is assigned the head node, is used to traverse the doubly linked list
         
-        while (temp && temp->data != value)
+        while (temp && temp->data != value) // if the data in temp, is not the same as the provided value from the parameter,
+                                            // temp is assigned the node pointer to the next node in front of it
             temp = temp->next;
 
-        if (!temp) return; 
+        if (!temp) return; // if the provided value is not in the linked list, the method returns back to main
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
-        else
-            head = temp->next; 
+        if (temp->prev) // if a node exists before the temp node,
+            temp->prev->next = temp->next; // the next node pointer of the temp's previous node now points to temp's pointer to the next node
+        else // if a node doesn't exist before temp node, then the node to delete is the head node.
+            head = temp->next; // the pointer to the head node now points it's next node
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
+        if (temp->next) // if a node exists after the temp node, 
+            temp->next->prev = temp->prev; // the next node 
         else
             tail = temp->prev; 
 
-        delete temp;
+        delete temp; // temp node is now deallocated
     }
 
     void delete_pos(int pos) {
