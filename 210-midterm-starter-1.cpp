@@ -1,3 +1,5 @@
+// COMSC-210 | Midterm 1 | Jed Aficial
+// github link: https://github.com/jaficial/210-midterm-1
 #include <iostream>
 using namespace std;
 
