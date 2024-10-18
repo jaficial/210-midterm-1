@@ -230,22 +230,41 @@ public:
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { // if current is a valid node
+            cout << current->data << " "; // data of the current node is outputted
+            current = current->next; // current node is assigned to the pointer of the orginial current's next node
         }
         cout << endl;
     }
 
+    // print_reverse traverses through the linked list backwards through it's tail, beginning with the tail of the list
     void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+        Node* current = tail; // current node is created and assigned to the tail node. current is used to traverse the linked list
+        if (!current) { // if current is invalid, linked list is empty and returns back to main 
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) { // if current is valid
+            cout << current->data << " "; // data of current is outputted
+            current = current->prev; // current now points to the original current's previous node
+        }
+        cout << endl;
+    }
+
+    void every_other_element() {
+        Node* current = head;
+        if (!current){ // if current is an invalid node
+            cout << "List is empty." << endl;
+        }
+        while (current) { // if current is a valid node
+            cout << current->data << " "; // data of current is outputted
+            // current is assigned to it's next node twice to have current assigned to every other node whenever the while loop traverses
+            current = current->next; 
+            current = current->next;
+
+            if (!current){ // if current becomes an invalid node, return back to main
+                return;
+            }
         }
         cout << endl;
     }
@@ -253,7 +272,11 @@ public:
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-
+    
+    DoublyLinkedList list; // initialization of new doubly linked list
+    for (int i = 0; i < 10; i++){
+        list.push_back(rand() % 100); // using the push back
+    }
     
     return 0;
 }
