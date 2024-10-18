@@ -152,50 +152,53 @@ public:
         // pointing to temp's previous node. 
         Node* tempPrev = temp->prev; 
         tempPrev->next = temp->next; // tempPrev pointer to the next node is assigned the pointer to temp's next node. 
-        temp->next->prev = tempPrev; // The pointer to temp
-        delete temp;
+        temp->next->prev = tempPrev; // The pointer to the previous node of temp's next node is now assigned the tempPrev node
+        delete temp; // temp node gets deallocated
     }
-
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+    
+    // push_back appends a node to the tail end of the doubly linked list, containing data from the provided int parameter, "v"
+    void push_back(int v) { // v represents data for the new node
+        Node* newNode = new Node(v); // new node is initialized for the new value 
+        if (!tail) // if a tail doesn't exist, then it's an empty list
+            head = tail = newNode; // the new node is now the head and tail of the list
+        else { // if tail does exist
+            tail->next = newNode; // the original tail node points to the new node,
+            newNode->prev = tail; // the pointer to the previous node of the new node points to the original tail node
+            tail = newNode; // the tail node is now assigned the new node
+        }
+    }
+    // push_front appends a node to the head end of the doubly linked list, containing data form the provided int parameter, "v" 
+    void push_front(int v) { // v represents data for the new node
+        Node* newNode = new Node(v); // new node is initialized for the new value
+        if (!head) // if there isn't a head, it's an empty list,
+            head = tail = newNode; // head and tail nodes are assigned the new node
+        else { // if there is a head,
+            newNode->next = head; // the pointer to the next node of the new node, points to the original head pointer
+            head->prev = newNode; // the pointer to the previous node of the original head node now points to the new node
+            head = newNode; // the head node is assigned the new node
         }
     }
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
-        }
-    }
-    
+    // pop_front deletes the head node of the doubly linked list and, makes the head->next the new head node
     void pop_front() {
 
-        if (!head) {
+        if (!head) { // if there is now head, the linked list is empty, and returns back to main
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; // temp node is created assigned to head
 
-        if (head->next) {
+        if (head->next) { // if there is a node after head, the new head node is assigned the pointer to the original head's next node
             head = head->next;
-            head->prev = nullptr;
+            head->prev = nullptr; // pointer to head's previous node points to null
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else // if there isn't a valid node after head, it means it is the last node in the list
+            head = tail = nullptr; // becomes empty list
+        delete temp; // deallocates temp node
     }
 
+    // 
     void pop_back() {
         if (!tail) {
             cout << "List is empty." << endl;
