@@ -5,12 +5,21 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
-class DoublyLinkedList {
+class DoublyLinkedList { // DoublyLinkedList is the class for initializing/creating a double linked list
 private:
+    // Node is a struct that is created to represent a node in the linked list.
     struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+        int data; // The data type that Node holds is an integer data type
+        Node* prev; // prev is a pointer to the node that is in one spot before the specified node
+        Node* next; // next is a pointer to the node that is in one spot after the specified node
+        
+        // Node(...) is a parameter constructor
+            // if the constructor is not given parameters, the pointer to the previous and next nodes are assigned
+            // to nullptr, as well as val remains an initialized integer variable
+
+            // if the constructor is provided parameters, the Node pointer p is assigned to prev, representing the 
+            // previous node, the Node pointer n is assigned to next, representing the next node, and val is assigned
+            // to the data variable
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
@@ -18,6 +27,8 @@ private:
         }
     };
 
+    // Node* head is a pointer to the head node, which represents the first node of the doubly linked list.
+    // It's previous node should point to null.
     Node* head;
     Node* tail;
 
