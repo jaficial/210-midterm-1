@@ -43,34 +43,42 @@ public:
        be inserted into the linked list. The method then traverses the doubly linked list ,"position", 
        amount of times, then inserts the "value" in a new node at that position. The next node of this
        new node points to the node in position + 1, and the previous node of this new node points to 
-       the node in position - 1. If the user chooses the position after the last node, then the next 
+       the node in position. If the user chooses the position after the last node, then the next 
        node of this new node points to null. */
     void insert_after(int value, int position) {
         if (position < 0) { // The position must be at least at 0, as the doubly linked list starts at index 0.
-                            // If the a position 
+                            // If the a position < 0 is given, it is invalid and the function returns the user back to main.
             cout << "Position must be >= 0." << endl;
             return;
         }
 
+        // if position is less than 0, a new node the provided value assigned to it's data.
         Node* newNode = new Node(value);
-        if (!head) {
+        if (!head) { // Tests if it is the first node of the doubly linked list. If it is, the new node 
+                     // is head as well as the tail node. The function then returns to main.
             head = tail = newNode;
             return;
         }
 
+        // if it isn't the first node in the doubly linked list, a new node pointer, "temp" points to
+        // the head node, and temp is used to traverse the doubly linked list. 
         Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        for (int i = 0; i < position && temp; ++i) // for each iteration, temp pointer is assigned to the pointer that is 
+                                                   // pointing to the node after temp
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp) { // if the provided position is greater than the size of the linked list, the node does not 
+                     // get inserted into the list, and it is deallocated. The function then returns the user to main
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            delete newNode; // newNode gets deallocated
             return;
         }
-
+        
+        // newNode's pointer to the next node is assigned the node pointer after temp, and
+        // newNode's pointer to the previous node is assigned the node pointer to temp 
         newNode->next = temp->next;
         newNode->prev = temp;
-        if (temp->next)
+        if (temp->next) // if the 
             temp->next->prev = newNode;
         else
             tail = newNode;
