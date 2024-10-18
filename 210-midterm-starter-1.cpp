@@ -271,12 +271,19 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+   // cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
     
     DoublyLinkedList list; // initialization of new doubly linked list
     for (int i = 0; i < 10; i++){
-        list.push_back(rand() % 100); // using the push back
+        list.push_back(rand() % 100); // using the push back method to append a random number between 1 and 100 in to the doubly linked list
     }
     
+    cout << "This is how the original linked list looks like: ";
+    list.print();
+    cout << endl << "Now this is how the linked list looks like when using the \"every_other_element()\" method: ";
+    list.every_other_element();
+
+    // deallocates the doubly linked list:
+    list.~DoublyLinkedList();
     return 0;
 }
