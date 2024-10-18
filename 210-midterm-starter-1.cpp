@@ -198,33 +198,35 @@ public:
         delete temp; // deallocates temp node
     }
 
-    // 
+    // pop_back deletes the tail node of the doubly linked list, and makes the tail->prev the new tail node
     void pop_back() {
-        if (!tail) {
+        if (!tail) { // if there is no tail, then it is an empty linked list and returns back to main
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; // temp node is created which is assigned the tail node
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) { // if there is a node before the tail node
+            tail = tail->prev; // tail is assigned it's previous node
+            tail->next = nullptr; // tail->next now points to null
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else // if it is the last node in the linked list
+            head = tail = nullptr; // head and tail is assigned null
+        delete temp; // temp is deallocated
     }
 
+    // destructor of the double linked list
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        while (head) { // if there is a head to the linked list
+            Node* temp = head; // new temp node is assigned the head  node
+            head = head->next; // new head points to the next node of the original head node
+            delete temp; // temp node is deallocated
         }
     }
+    // print function traverses through the linked list, and prints the data of each node with each traversal
     void print() {
-        Node* current = head;
-        if (!current) {
+        Node* current = head; // current node is created and assigned to the head node. current is used to traverse the linked list
+        if (!current) { // if current is invalid, there is no head, meaining empty linked list. Returns back to main
             cout << "List is empty." << endl;
             return;
         }
