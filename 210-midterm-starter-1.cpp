@@ -85,7 +85,8 @@ public:
         temp->next = newNode; // the pointer to the next node of the tail's previous node now points to tail which holds the new node
     }
 
-    // delete_val takes in a int type parameter which represents the data within a node 
+    // delete_val takes in an int type parameter which represents the data within a node. This method
+    // deletes a node based on being given the data in the node
     void delete_val(int value) {
         if (!head) return; // if there is no head node, the doubly linked list is empty and the method returns back to main
 
@@ -103,47 +104,55 @@ public:
             head = temp->next; // the pointer to the head node now points it's next node
 
         if (temp->next) // if a node exists after the temp node, 
-            temp->next->prev = temp->prev; // the next node 
-        else
-            tail = temp->prev; 
+            temp->next->prev = temp->prev; // the pointer to the previous node of temp's next node is assigned the pointer to temp's previous node
+        else // else a node doesn't exist after temp node, meaning the node to be deleted is the tail node
+            tail = temp->prev;  // tail node now points to it's previous node.
 
         delete temp; // temp node is now deallocated
     }
 
+    // delete_pos takes in an int type parameter which represents the index position of a node. This method 
+    // deletes a node based on being given the index position of a node
     void delete_pos(int pos) {
-        if (!head) {
+        if (!head) { // if there is no head node, the doubly linked list is empty and the method returns back to main
             cout << "List is empty." << endl;
             return;
         }
-    
+        // if the index position given is the first position of the doubly linked list,
+        // delete_pos utilizes the "pop_front" method to pop the head of the doubly linked list and returns back to main.
         if (pos == 1) {
             pop_front();
             return;
         }
-    
+        
+        // temporary node pointer is created to traverse the doubly linked list. It is assigned the head node
         Node* temp = head;
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+        for (int i = 1; i < pos; i++){ // traversing the linked list
+            if (!temp) { // if provided position doesn't exist in the list, delete_pos returns user back to main.
                 cout << "Position doesn't exist." << endl;
                 return;
             }
-            else
+            else // temp traverses the linked list by assigning temp to the pointer it's next node
                 temp = temp->next;
         }
-        if (!temp) {
+
+        if (!temp) { // if temp isn't a valid node after traversing the doubly linked list, it returns back to main
             cout << "Position doesn't exist." << endl;
             return;
         }
-    
-        if (!temp->next) {
+
+        if (!temp->next) { // if the pointer of temp's next node points to null, the tail is to be deleted
+                           // and the "pop_back" method is used
             pop_back();
             return;
         }
-    
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
+
+        // Else if the temp node isn't the head or tail node, a temp node pointer is created to represent the node 
+        // pointing to temp's previous node. 
+        Node* tempPrev = temp->prev; 
+        tempPrev->next = temp->next; // tempPrev pointer to the next node is assigned the pointer to temp's next node. 
+        temp->next->prev = tempPrev; // The pointer to temp
         delete temp;
     }
 
