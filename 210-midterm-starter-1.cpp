@@ -13,13 +13,13 @@ private:
         Node* prev; // prev is a pointer to the node that is in one spot before the specified node
         Node* next; // next is a pointer to the node that is in one spot after the specified node
         
-        // Node(...) is a parameter constructor
-            // if the constructor is not given parameters, the pointer to the previous and next nodes are assigned
-            // to nullptr, as well as val remains an initialized integer variable
+        /* Node(...) is a parameter constructor
+               if the constructor is not given parameters, the pointer to the previous and next nodes are assigned
+               to nullptr, as well as val remains an initialized integer variable
 
-            // if the constructor is provided parameters, the Node pointer p is assigned to prev, representing the 
-            // previous node, the Node pointer n is assigned to next, representing the next node, and val is assigned
-            // to the data variable
+               if the constructor is provided parameters, the Node pointer p is assigned to prev, representing the 
+               previous node, the Node pointer n is assigned to next, representing the next node, and val is assigned
+               to the data variable*/
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
@@ -27,16 +27,27 @@ private:
         }
     };
 
-    // Node* head is a pointer to the head node, which represents the first node of the doubly linked list.
-    // It's previous node should point to null.
+    /* Node* head is a pointer to the head node, which represents the first node of the doubly linked list.
+       The head's previous node should point to null.
+       Node* tail is a pointer to the tail node, which represents the last node of the doubly linked list. 
+       The next node pointer of the tail node should point to nullptr. */
     Node* head;
     Node* tail;
 
 public:
+    // default constructor of a doubly linked list which assigns the head and tail node pointers to null
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    /* insert_after is a class method which takes two int values, "value" and "position"
+       position represents an index position in the linked list, while value represents the data that will
+       be inserted into the linked list. The method then traverses the doubly linked list ,"position", 
+       amount of times, then inserts the "value" in a new node at that position. The next node of this
+       new node points to the node in position + 1, and the previous node of this new node points to 
+       the node in position - 1. If the user chooses the position after the last node, then the next 
+       node of this new node points to null. */
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) { // The position must be at least at 0, as the doubly linked list starts at index 0.
+                            // If the a position 
             cout << "Position must be >= 0." << endl;
             return;
         }
